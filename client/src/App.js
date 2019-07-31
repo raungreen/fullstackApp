@@ -9,7 +9,7 @@ class App extends Component {
     intervalIsSet: false,
     idToDelete: null,
     idToUpdate: null,
-    objectToUpdate: null
+    objToUpdate: null
   };
 
   componentDidMount() {
@@ -45,12 +45,15 @@ class App extends Component {
     });
   };
 
-  deleteFromDB = idTodelete => {
+  deleteFromDB = idToDelete => {
+    parseInt(idToDelete);
     let objIdToDelete = null;
     this.state.data.forEach(dat => {
-      if (dat.id === idTodelete) {
-        objIdToDelete = dat.id;
+      if (dat._id === idToDelete) {
+        objIdToDelete = dat._id;
       }
+      console.log('data id ' + dat._id);
+      console.log('data id ' + idToDelete);
     });
 
     axios.delete('http://localhost:3001/api/deleteData', {
@@ -58,6 +61,7 @@ class App extends Component {
         id: objIdToDelete
       }
     });
+    console.log('obj to delete ' + objIdToDelete);
   };
 
   updateDB = (idToUpdate, updateToApply) => {
@@ -68,6 +72,8 @@ class App extends Component {
         objIdToUpdate = dat._id;
       }
     });
+    console.log('obj to update ' + objIdToUpdate);
+    console.log('id to update ' + idToUpdate);
 
     axios.post('http://localhost:3001/api/updateData', {
       id: objIdToUpdate,
@@ -83,7 +89,7 @@ class App extends Component {
           {data.length <= 0
             ? 'NO DB ENTRIES YET'
             : data.map(dat => (
-                <li style={{ padding: '10px' }} key={dat.id}>
+                <li style={{ padding: '10px' }} key={dat._id}>
                   <span style={{ color: 'gray' }}> id: </span> {dat.id}
                   <br />
                   <span style={{ color: 'gray' }}> data: </span> {dat.message}
