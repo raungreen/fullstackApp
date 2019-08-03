@@ -49,9 +49,11 @@ class App extends Component {
     parseInt(idToDelete);
     let objIdToDelete = null;
     this.state.data.forEach(dat => {
-      if (dat._id === idToDelete) {
+      if (dat.id == idToDelete) {
         objIdToDelete = dat._id;
+        idToDelete = dat._id;
       }
+
       console.log('data id ' + dat._id);
       console.log('data id ' + idToDelete);
     });
